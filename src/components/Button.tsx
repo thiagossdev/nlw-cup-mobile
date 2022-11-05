@@ -18,7 +18,7 @@ export function Button({ title, type = 'PRIMARY', ...rest }: Props) {
         bg: type === 'SECONDARY' ? 'red.400' : 'yellow.600',
       }}
       _loading={{
-        _spinner: { color: 'black' },
+        _spinner: { color: type === 'SECONDARY' ? 'white' : 'black' },
       }}
       {...rest}
     >
