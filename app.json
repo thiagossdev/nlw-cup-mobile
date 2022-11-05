@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "nlwcupmobile",
+    "slug": "nlwcupmobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "nlwcupmobile",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
