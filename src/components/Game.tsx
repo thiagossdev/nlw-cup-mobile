@@ -55,11 +55,11 @@ export function Game({ data, setFirstTeamPoints, setSecondTeamPoints, onGuessCon
       </Text>
 
       <HStack mt={4} w="full" justifyContent="space-between" alignItems="center">
-        <Team code={data.firstTeamCountryCode} position="right" onChangeText={setFirstTeamPoints} />
+        <Team code={data.firstTeamCountryCode} position="right" onChangeText={setFirstTeamPoints} value={data.guess?.firstTeamPoints}/>
 
         <X color={colors.gray[300]} size={sizes[6]} />
 
-        <Team code={data.secondTeamCountryCode} position="left" onChangeText={setSecondTeamPoints} />
+        <Team code={data.secondTeamCountryCode} position="left" onChangeText={setSecondTeamPoints} value={data.guess?.secondTeamPoints} />
       </HStack>
 
       {!data.guess && (
