@@ -14,17 +14,17 @@ export function Find() {
   const { navigate } = useNavigation();
   const toast = useToast();
 
-  async function handlePoolCreate() {
-    if (!code.trim()) {
-      return toast.show({
-        title: 'Informe o código do bolão!',
-        placement: 'top',
-        bgColor: 'red.500',
-      });
-    }
-
+  async function handleJoinPool() {
     try {
       setIsLoading(true);
+
+      if (!code.trim()) {
+        return toast.show({
+          title: 'Informe o código do bolão!',
+          placement: 'top',
+          bgColor: 'red.500',
+        });
+      }
 
       await api.post('/pools/join', {
         code: code.trim(),
@@ -33,8 +33,11 @@ export function Find() {
       toast.show({
         title: 'Você entrou no bolão com sucesso',
         placement: 'top',
-        bgColor: 'grren.500',
+        bgColor: 'green.500',
       });
+
+      setCode('');
+      setIsLoading(false);
 
       navigate('pools');
     } catch (error) {
@@ -75,7 +78,7 @@ export function Find() {
           value={code}
         />
 
-        <Button title="Buscar bolão" isLoading={isLoading} onPress={handlePoolCreate} />
+        <Button title="Buscar bolão" isLoading={isLoading} onPress={handleJoinPool} />
       </VStack>
     </VStack>
   );
