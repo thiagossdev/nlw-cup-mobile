@@ -14,8 +14,8 @@ interface Props {
 export function Guesses({ poolId, code }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [games, setGames] = useState<GameProps[]>([]);
-  const [firstTeamPoints, setFirstTeamPoints] = useState('');
-  const [secondTeamPoints, setSecondTeamPoints] = useState('');
+  const [firstTeamPoints, setFirstTeamPoints] = useState<String[]>([]);
+  const [secondTeamPoints, setSecondTeamPoints] = useState<String[]>([]);
   const toast = useToast();
 
   async function fetchGames() {
@@ -38,7 +38,7 @@ export function Guesses({ poolId, code }: Props) {
 
   async function handleGuessConfirm(gameId: string) {
     try {
-      if (!firstTeamPoints.trim() || !secondTeamPoints.trim()) {
+      if (!firstTeamPoints[gameId]?.trim() || !secondTeamPoints[gameId]?.trim()) {
         return toast.show({
           title: 'Informe o placar para o palpite!',
           placement: 'top',
@@ -49,8 +49,8 @@ export function Guesses({ poolId, code }: Props) {
       setIsLoading(true);
 
       await api.post(`/pools/${poolId}/games/${gameId}/guesses`, {
-        firstTeamPoints: Number(firstTeamPoints),
-        secondTeamPoints: Number(secondTeamPoints),
+        firstTeamPoints: Number(firstTeamPoints[gameId]),
+        secondTeamPoints: Number(secondTeamPoints[gameId]),
       });
 
       toast.show({
@@ -88,8 +88,14 @@ export function Guesses({ poolId, code }: Props) {
       renderItem={({ item }) => (
         <Game
           data={item}
-          setFirstTeamPoints={setFirstTeamPoints}
-          setSecondTeamPoints={setSecondTeamPoints}
+          setFirstTeamPoints={(v) => {
+            firstTeamPoints[item.id] = v;
+            setFirstTeamPoints(firstTeamPoints);
+          }}
+          setSecondTeamPoints={(v) => {
+            secondTeamPoints[item.id] = v;
+            setSecondTeamPoints(secondTeamPoints);
+          }}
           onGuessConfirm={() => handleGuessConfirm(item.id)}
         />
       )}
