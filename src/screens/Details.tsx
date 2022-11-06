@@ -62,7 +62,7 @@ export function Details() {
     <VStack flex={1} bgColor="gray.900">
       <Header title={pool.title} showBackButton showShareButton onShare={handleCodeShare} />
       {pool._count?.participants > 0 ? (
-        <VStack px={5} flex={1} alignItems="center">
+        <VStack px={5} flex={1}>
           <PoolHeader data={pool} />
 
           <HStack bgColor="gray.800" p={1} rounded="sm" mb={5}>
